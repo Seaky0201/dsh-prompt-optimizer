@@ -2,6 +2,19 @@
 
 本项目版本号遵循 `0.x` 阶段的语义化：`0.<minor>.<patch>`；预发布版本带 `-beta.N` 后缀（面板中显示为 `0.1.1beta1`）。
 
+## v0.1.1-beta.5 — 2026/09/13
+
+作者：啃轮胎的西狐
+
+接管计数徽标**改为落盘**：刷新页面 / 重启 DSH 不再归零（`lib/client.js` + `lib/index.js`）：
+
+- **问题**：计数此前只活在内存（`store.intercepts`），刷新或重启即清零，徽标随之消失。
+- **改法**：新增按会话的落盘计数表 `store.sendsBySession`，权威来源是 host 状态文件的 `perSession[sid].sends`。
+  - client：`bumpSends()` 在每次拦截时 +1 并 `POST /state { sends }`；`interceptedSends()` 直接读表；状态载入时从 `st.perSession[*].sends` 回灌。
+  - host：`sanitizePerSession` / `savePluginState` 接受并校验 `sends`（非负整数、小数取整、上限 1e9，非法值一律丢弃）。
+- **计数语义不变**：仍与「拦截事件」同源（`keydown-enter` / `click-send` 各算一次，`optimize-start` 不算），仍按会话独立。`store.intercepts` 保留为原始事件流水（自检探针依赖它），但不再是徽标的数据源。
+- **新增回归自检**：`evidence/sends-counter-check.cjs` —— 从真实源码提取函数、在桩环境跑真实路径，**20/20 通过**，覆盖「一次发送只算 1」「按会话独立」「刷新回灌不归零」「host 侧非法值丢弃」。
+
 ## v0.1.1-beta.4 — 2026/09/13
 
 作者：啃轮胎的西狐
