@@ -50,6 +50,8 @@ dsh plugin --profile desktop add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-be
 # 1) 装包（GitHub 仓库 / tarball / 本地目录都行；profile 名按上面的规则选）
 dsh plugin --profile web add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.5
 dsh plugin --profile web add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.5.tgz
+#dsh plugin --profile desktop add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.5
+#dsh plugin --profile desktop add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.5.tgz
 
 # 2) 在 ~/.dsh/profiles/<profile>/package.json 的 dsh.profile.bundles 里加一行
 #    （DSH Web 填 web，DSH Desktop 填 desktop）：
