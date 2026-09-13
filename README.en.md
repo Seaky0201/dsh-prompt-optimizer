@@ -31,16 +31,28 @@ Author: **啃轮胎的西狐** · Version **0.1.1beta3** · Release date **2026/
 
 ## 1. Installation
 
+> **DSH Web or DSH Desktop — pick one**: every command below uses `--profile web` (DSH Web).
+> **For DSH Desktop, just swap `--profile web` for `--profile desktop`** — everything else is identical,
+> and the state directory changes from `~/.dsh/profiles/web/` to `~/.dsh/profiles/desktop/`.
+
+```bash
+# DSH Web
+dsh plugin --profile web     add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
+# DSH Desktop — the profile name is the only difference
+dsh plugin --profile desktop add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
+```
+
 ### Option A — install it like any other DSH plugin (recommended)
 
 Two steps: install the package into your profile, then register it as a bundle layer.
 
 ```bash
-# 1) install the package (GitHub repo / tarball / local dir all work)
+# 1) install the package (GitHub repo / tarball / local dir all work; pick the profile name as above)
 dsh plugin --profile web add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
 dsh plugin --profile web add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.3.tgz
 
-# 2) add one line to dsh.profile.bundles in ~/.dsh/profiles/web/package.json:
+# 2) add one line to dsh.profile.bundles in ~/.dsh/profiles/<profile>/package.json
+#    (web for DSH Web, desktop for DSH Desktop):
 #      "@dsh-external/dsh-prompt-optimizer"
 ```
 
@@ -49,7 +61,7 @@ Restart DSH and you are done. **Why the bundles edit is needed**: `dsh plugin` m
 ### Option B — keep bundles untouched, insert via the profile patch
 
 ```yaml
-# ~/.dsh/profiles/web/cordis.patch.yml (a top-level YAML array)
+# ~/.dsh/profiles/<profile>/cordis.patch.yml (a top-level YAML array; web or desktop)
 - insert:
     - id: prompt-optimizer
       name: '@dsh-external/dsh-prompt-optimizer'
@@ -63,7 +75,8 @@ The package still has to be resolvable (`dsh plugin add`, or a manually created 
 ### Verify the installation
 
 ```bash
-dsh --dump-config --profile web | grep -A2 'id: prompt-optimizer'   # present, and exactly once
+dsh --dump-config --profile web     | grep -A2 'id: prompt-optimizer'   # present, and exactly once
+dsh --dump-config --profile desktop | grep -A2 'id: prompt-optimizer'   # use this line for DSH Desktop
 node -e "console.log(require.resolve('@dsh-external/dsh-prompt-optimizer',{paths:['<profile dir>']}))"
 ```
 
@@ -126,7 +139,8 @@ node -e "console.log(require.resolve('@dsh-external/dsh-prompt-optimizer',{paths
 ## 6. Uninstall
 
 ```bash
-dsh plugin --profile web remove @dsh-external/dsh-prompt-optimizer
+dsh plugin --profile web     remove @dsh-external/dsh-prompt-optimizer
+dsh plugin --profile desktop remove @dsh-external/dsh-prompt-optimizer   # use this line for DSH Desktop
 ```
 
 If you used Option B, also delete the `insert` entry from `cordis.patch.yml`. Plugin settings live in `~/.dsh/prompt-optimizer.json` (tier / permission / model / window geometry / per-session settings); delete it too for a full cleanup.

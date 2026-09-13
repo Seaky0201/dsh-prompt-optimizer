@@ -31,16 +31,28 @@
 
 ## 一、安装
 
+> **DSH Web / DSH Desktop 二选一**：下面所有命令都以 `--profile web`（DSH Web）为例。
+> **DSH Desktop 用户把 `--profile web` 换成 `--profile desktop` 即可**，其余步骤完全相同；
+> 对应的状态目录也从 `~/.dsh/profiles/web/` 变成 `~/.dsh/profiles/desktop/`。
+
+```bash
+# DSH Web
+dsh plugin --profile web     add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
+# DSH Desktop —— 只有 profile 名不同
+dsh plugin --profile desktop add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
+```
+
 ### 方式 A：像安装其它 DSH 插件一样（推荐）
 
 两步：先把包装进 profile，再把包名登记为 bundle 层。
 
 ```bash
-# 1) 装包（GitHub 仓库 / tarball / 本地目录都行）
+# 1) 装包（GitHub 仓库 / tarball / 本地目录都行；profile 名按上面的规则选）
 dsh plugin --profile web add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
 dsh plugin --profile web add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.3.tgz
 
-# 2) 在 ~/.dsh/profiles/web/package.json 的 dsh.profile.bundles 里加一行：
+# 2) 在 ~/.dsh/profiles/<profile>/package.json 的 dsh.profile.bundles 里加一行
+#    （DSH Web 填 web，DSH Desktop 填 desktop）：
 #      "@dsh-external/dsh-prompt-optimizer"
 ```
 
@@ -51,7 +63,7 @@ dsh plugin --profile web add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.3.tg
 不想改 `dsh.profile.bundles` 时，也可以直接在 profile 的补丁层插一条 entry：
 
 ```yaml
-# ~/.dsh/profiles/web/cordis.patch.yml （顶层 YAML 数组）
+# ~/.dsh/profiles/<profile>/cordis.patch.yml （顶层 YAML 数组；DSH Web 填 web，DSH Desktop 填 desktop）
 - insert:
     - id: prompt-optimizer
       name: '@dsh-external/dsh-prompt-optimizer'
@@ -65,7 +77,8 @@ dsh plugin --profile web add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.3.tg
 ### 验证安装
 
 ```bash
-dsh --dump-config --profile web | grep -A2 'id: prompt-optimizer'   # 装配树里有它，且只有一条
+dsh --dump-config --profile web     | grep -A2 'id: prompt-optimizer'   # 装配树里有它，且只有一条
+dsh --dump-config --profile desktop | grep -A2 'id: prompt-optimizer'   # DSH Desktop 用这一行
 node -e "console.log(require.resolve('@dsh-external/dsh-prompt-optimizer',{paths:['<profile 目录>']}))"
 ```
 
@@ -128,7 +141,8 @@ node -e "console.log(require.resolve('@dsh-external/dsh-prompt-optimizer',{paths
 ## 六、卸载
 
 ```bash
-dsh plugin --profile web remove @dsh-external/dsh-prompt-optimizer
+dsh plugin --profile web     remove @dsh-external/dsh-prompt-optimizer
+dsh plugin --profile desktop remove @dsh-external/dsh-prompt-optimizer   # DSH Desktop 用这一行
 ```
 
 若用"方式 B"安装，请同时删除 `cordis.patch.yml` 里那条 `insert`。插件设置存在 `~/.dsh/prompt-optimizer.json`（档位/权限/模型/迷你窗尺寸/按会话设置），如需彻底清理可一并删除。
