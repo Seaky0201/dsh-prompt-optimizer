@@ -48,8 +48,12 @@ Two steps: install the package into your profile, then register it as a bundle l
 
 ```bash
 # 1) install the package (GitHub repo / tarball / local dir all work; pick the profile name as above)
+# DSH Web
 dsh plugin --profile web add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.5
 dsh plugin --profile web add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.5.tgz
+# DSH Desktop — the profile name is the only difference
+dsh plugin --profile desktop add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.5
+dsh plugin --profile desktop add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.5.tgz
 
 # 2) add one line to dsh.profile.bundles in ~/.dsh/profiles/<profile>/package.json
 #    (web for DSH Web, desktop for DSH Desktop):
