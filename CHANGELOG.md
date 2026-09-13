@@ -2,6 +2,17 @@
 
 本项目版本号遵循 `0.x` 阶段的语义化：`0.<minor>.<patch>`；预发布版本带 `-beta.N` 后缀（面板中显示为 `0.1.1beta1`）。
 
+## v0.1.1-beta.3 — 2026/09/13
+
+作者：啃轮胎的西狐
+
+控件行「接管计数徽标」的可读性修正（改动集中在 `lib/client.js`，+14/−4）：
+
+- **口径修正**：徽标此前直接显示 `store.intercepts.length`（record 条数）。而一次发送会同时记 `keydown-enter` / `click-send` 与 `optimize-start` 两条 ⇒ **1 次发送被显示成 2**。新增 `interceptedSends()` 只统计拦截事件（`keydown-enter` + `click-send`），徽标与迷你窗「拦截累计 N」两处共用同一口径，数字从此对得上真实发送次数。
+- **新增悬浮提示**：鼠标停在徽标上显示「本会话已接管 N 次发送」（与徽标同源，都是 `interceptedSends()`）。
+- **视觉对齐**：徽标边框与填充改为与「?」帮助按钮（`.dpo-help`）同款 —— `border:1px solid var(--dpo-line)` + `label-primary 5%` 的顶部微光渐变，文字色改用 `label-secondary`；不再使用强调色块（原来那套 accent 底色正是它"看起来像个按钮"的原因）。形状仍保持小药丸，尺寸不变。
+- `store.intercepts` 的记录行为**未改动** ⇒ 自检探针（E1/E3 断言 `intercepts.length` 增量）不受影响。
+
 ## v0.1.1-beta.2 — 2026/09/13
 
 作者：啃轮胎的西狐
