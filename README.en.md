@@ -25,7 +25,7 @@ The moment you press Enter in the composer, your message is **not** sent directl
 - **Tier and permission are per-session**: setting session A to "Extreme + Auto" leaves session B untouched.
 - The mini window is **session-isolated**: a window triggered in A never pops up in B, and comes back as-is when you return to A (if it is still waiting for your decision).
 
-Author: **啃轮胎的西狐** · Version **0.1.1beta3** · Release date **2026/09/13** (the same credit appears at the bottom of the in-plugin `?` panel)
+Author: **啃轮胎的西狐** · Version **0.1.1beta4** · Release date **2026/09/13** (the same credit appears at the bottom of the in-plugin `?` panel)
 
 ---
 
@@ -37,9 +37,9 @@ Author: **啃轮胎的西狐** · Version **0.1.1beta3** · Release date **2026/
 
 ```bash
 # DSH Web
-dsh plugin --profile web     add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
+dsh plugin --profile web     add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.4
 # DSH Desktop — the profile name is the only difference
-dsh plugin --profile desktop add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
+dsh plugin --profile desktop add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.4
 ```
 
 ### Option A — install it like any other DSH plugin (recommended)
@@ -48,8 +48,8 @@ Two steps: install the package into your profile, then register it as a bundle l
 
 ```bash
 # 1) install the package (GitHub repo / tarball / local dir all work; pick the profile name as above)
-dsh plugin --profile web add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
-dsh plugin --profile web add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.3.tgz
+dsh plugin --profile web add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.4
+dsh plugin --profile web add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.4.tgz
 
 # 2) add one line to dsh.profile.bundles in ~/.dsh/profiles/<profile>/package.json
 #    (web for DSH Web, desktop for DSH Desktop):

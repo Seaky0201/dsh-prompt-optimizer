@@ -25,7 +25,7 @@
 - **档位与权限按会话独立**：在 A 会话调到「极端 + 自动」，B 会话不受影响。
 - 迷你窗**按会话隔离**：A 会话触发的窗，切到 B 不会冒出来；切回 A 若还挂着（等你决定）会原样回来。
 
-作者：**啃轮胎的西狐** · 版本 **0.1.1beta3** · 版本日期 **2026/09/13**（插件内 `?` 面板最底部也有同样署名）
+作者：**啃轮胎的西狐** · 版本 **0.1.1beta4** · 版本日期 **2026/09/13**（插件内 `?` 面板最底部也有同样署名）
 
 ---
 
@@ -37,9 +37,9 @@
 
 ```bash
 # DSH Web
-dsh plugin --profile web     add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
+dsh plugin --profile web     add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.4
 # DSH Desktop —— 只有 profile 名不同
-dsh plugin --profile desktop add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
+dsh plugin --profile desktop add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.4
 ```
 
 ### 方式 A：像安装其它 DSH 插件一样（推荐）
@@ -48,8 +48,8 @@ dsh plugin --profile desktop add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-be
 
 ```bash
 # 1) 装包（GitHub 仓库 / tarball / 本地目录都行；profile 名按上面的规则选）
-dsh plugin --profile web add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.3
-dsh plugin --profile web add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.3.tgz
+dsh plugin --profile web add github:Seaky0201/dsh-prompt-optimizer#v0.1.1-beta.4
+dsh plugin --profile web add ./dsh-external-dsh-prompt-optimizer-0.1.1-beta.4.tgz
 
 # 2) 在 ~/.dsh/profiles/<profile>/package.json 的 dsh.profile.bundles 里加一行
 #    （DSH Web 填 web，DSH Desktop 填 desktop）：

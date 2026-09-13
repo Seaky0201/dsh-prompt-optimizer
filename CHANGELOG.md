@@ -2,6 +2,17 @@
 
 本项目版本号遵循 `0.x` 阶段的语义化：`0.<minor>.<patch>`；预发布版本带 `-beta.N` 后缀（面板中显示为 `0.1.1beta1`）。
 
+## v0.1.1-beta.4 — 2026/09/13
+
+作者：啃轮胎的西狐
+
+接管计数徽标的「**会话维度**」修正（承接 v0.1.1-beta.3；改动集中在 `lib/client.js`，+7/−3）：
+
+- **修复：徽标数字跨会话串台**。`store.intercepts` 是**跨会话共用**的数组，beta.3 只修了"口径"（一次发送被算成 2 的问题），没修"会话维度" —— 结果是 A 会话拦过 1 次，切到 B 会话徽标**照样显示 1**，与本插件"档位 / 权限 / 迷你窗按会话独立"的一贯语义不符。
+- 现在 `interceptedSends()` 按当前会话过滤（`store.viewSessionId`，无会话归一为 `null`）；`keydown-enter` / `click-send` 两条记录补写 `sessionId` 字段（此前只有 `optimize-start` 带）。
+- 会话切换走 `onViewSessionChange` → `emit()`，徽标随新会话**即时重算**；该会话 0 次时徽标自动隐藏。
+- 同时收录上一版之后的文档改动：README（中/英）补充 **DSH Desktop 安装方式**（`--profile web` 换成 `--profile desktop`）。
+
 ## v0.1.1-beta.3 — 2026/09/13
 
 作者：啃轮胎的西狐
